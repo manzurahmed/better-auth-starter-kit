@@ -1,7 +1,7 @@
 # PROJECT SETUP
 
 YouTube Link: [https://www.youtube.com/watch?v=UKfVG8zBteM]
-Completed: 1:21:23
+Completed: 1:48:15
 
 ```bash
 pnpm self-update
@@ -17,6 +17,11 @@ pnpm install lucide
 ```
 
 # Better Auth
+
+Every user in the website must go through middleware.ts. It is like the gatekeeper.
+In each and every pages that you want to be protected, you have to use the session to make sure that the user is permitted to view the pages in question.
+
+If, for example, someone bypasses the middleware, he/she is still needed to be verified for authentication.
 
 [https://www.better-auth.com/docs/installation]
 
@@ -120,5 +125,12 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+```
 
+## Migration
+
+Migration means, pushing our schema.prisma to Supabase database.
+
+```bash
+npx prisma migrate dev --name init
 ```
