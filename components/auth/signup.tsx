@@ -28,6 +28,7 @@ import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Label } from "../ui/label";
+import { registerUser } from "@/actions/users";
 
 // Define schema for form validation with Zod
 const registerSchema = z.object({
@@ -71,7 +72,19 @@ const Signup = ({
 	const onSubmit = async (data: RegisterFormValues) => {
 		try {
 			setIsSubmitting(true);
-			console.log("Signup data:", data.email, data.firstName, data.lastName, data.password);
+			const result = await registerUser(data);
+
+			if (result.success) {
+				toast.success("Success!", {
+					description: "Your account has been created successfully",
+				});
+
+				router.push("/dashboard");
+			} else {
+				toast.error("Error", {
+					description: result.error
+				})
+			}
 		} catch (error) {
 			setIsSubmitting(false);
 			console.error("Network Error:", error);

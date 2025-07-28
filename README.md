@@ -1,7 +1,7 @@
 # PROJECT SETUP
 
 YouTube Link: [https://www.youtube.com/watch?v=UKfVG8zBteM]
-Completed: 1:48:15
+Completed: 2:30:07
 
 ```bash
 pnpm self-update

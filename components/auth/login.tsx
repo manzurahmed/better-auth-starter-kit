@@ -18,6 +18,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
+import { loginUser } from "@/actions/users";
 
 const loginSchema = z.object({
 	email: z.string().email("Please enter a valid email address"),
@@ -57,10 +58,29 @@ export function LoginForm({
 	const onSubmit = async (data: LoginFormValues) => {
 		try {
 			setIsSubmitting(true);
-			console.log("Signup data:", data.email, data.password);
+			console.log("Login data:", data.email, data.password);
+
+			const result = await loginUser(data);
+
+			if (result.success) {
+				toast.success("Success", {
+					description: "Login successfully!",
+				});
+
+				router.push("/dashboard");
+			} else {
+				toast.error("Error", {
+					description: result.error,
+				});
+			}
 		} catch (error) {
+			toast.error("Error", {
+				description: "Something went wrong. Please try again!",
+			})
 			setIsSubmitting(false);
 			console.error("Network Error:", error);
+		} finally {
+			setIsSubmitting(false);
 		}
 	};
 
